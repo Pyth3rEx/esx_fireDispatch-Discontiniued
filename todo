@@ -1,0 +1,7 @@
+- Make the fire server side
+- Attach the fire to the vehicle  <= Kinda done (overided by "bug")
+- Add a choice in vehicles to spawn / pick random vehicle from list
+
+
+DONE:
+- Fix PlaySoundFromCoords
