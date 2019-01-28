@@ -33,7 +33,22 @@ AddEventHandler("triggerSound", function()
       print(nearestStation)
     end
   end
-  PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
+
+
+  ---- PLAYING THE SOUND IN A RIDDM
+  for i = 1, 10, 1 do -- repeat to make it sound like an alarm
+    for i = 1, 10, 1 do -- used to make it louder
+      PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
+    end
+    Wait(1000)
+  end
+  Wait(1000)
+  for i = 1, 3, 1 do -- repeat to make it sound like an alarm
+    for i = 1, 10, 1 do -- used to make it louder
+      PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
+    end
+    Wait(2000)
+  end
 end)
 
 ------------------------------ Fire
