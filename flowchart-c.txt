@@ -1,0 +1,67 @@
+------------------------------           ------------------------------
+------------------------------ Variables ------------------------------
+------------------------------           ------------------------------
+
+fireHornLocation (locations of firestations, where will the alarm be played?) - X(int) Y(int) Z(int) NAME(string)
+
+fireSpawnLocation (locations of fires, where will the first flame spawn?) - X(int) Y(int) Z(int) NAME(string) FIRETYPE(int) ISITFUELFIRE?(bool)
+
+------------------------------          ------------------------------
+------------------------------ Dispatch ------------------------------
+------------------------------          ------------------------------
+
+Registers the command
+    Shows a notification (debug)
+    Assigns Variables
+        locates player
+        introduces the variable "nearestStation"
+    
+    For as many entities there are in fireHornLocations do:
+        Finds distance between currentChecked station and player
+        introduces "nearestStationDiff"
+
+        if "nearestStationDiff" has not been set yet:
+            set "nearestStation" as current station
+            updates "nearestStationDiff"
+        if "nearestStationDiff" is already set:
+            set "nearestStationDiff" as distance to player and nearest station so far
+        end
+
+        if currentChecked station is closer or equal to the player and nearest before then
+            assign new nearest station
+            debug stuff
+        end
+    end
+
+    playing the alarm:
+        a bunch of for loops creating a pattern
+
+------------------------------      ------------------------------
+------------------------------ Fire ------------------------------
+------------------------------      ------------------------------
+Registers the command
+
+Starts the syncing (sends the data over to the server which will send it back to every client to process on their own)
+    Finds a random number between 1 and the number of entities in the array "fireSpawnLocation"
+
+    Used for calls wich a vehicle:
+        Does stuff to spawn car
+
+    A bunch of stuff to avoid crashing
+
+    Still figuring out what that does
+
+    If the type of fire is "1"
+        Spawns car
+        Starts fire under the engine (that's why fire is slightly away from car coords)
+    If the type of fire is anything else
+        Starts fire on location
+        Spawns awsome looking particles (not acctual fire)
+    End
+End
+
+------------------------------                    ------------------------------
+------------------------------ Seperate functions ------------------------------
+------------------------------                    ------------------------------
+
+Used to show notifications to the player
