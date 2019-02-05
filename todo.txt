@@ -1,8 +1,61 @@
 - Make the fire server side
 - Attach the fire to the vehicle  <= Kinda done (overided by "bug")
 - Add a choice in vehicles to spawn / pick random vehicle from list
-
+- Do not spawn fires while it rains.... caus it's stupid looking...
 
 DONE:
 - Fix PlaySoundFromCoords
 - Added Rythm to the alarm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spreading:
+------------------------------------------------- DIDN'T WORK!!!!
+Map size:
+Y = -4000 <> 8000
+X = -3900 <> 6000
+
+for i = 1, 8000, -4000
+    for i = 1, 6000, -3900
+     Get closest fire
+     Get a random value
+     Randomly decide if the fire should spread, which direction, and which fire particles to use
+    end
+end
+------------------------------------------------- DIDN'T WORK!!!!
+
+
+In the background:
+remove all fires and respawn them?
+spawn new fires on top of existing ones? (could be cool to get random calls when player destroy their cars lol)
+
+need a way to find all fire entities on the map and use a for loop to spread them or not. (if extinguished quick enough they won't spread)
+
+
+
+
+
+
+
+
+Extinguishing fire:
+Check for small fires? (entities)
+If small fires are deleted (extinguished)
+    remove particles?
+end

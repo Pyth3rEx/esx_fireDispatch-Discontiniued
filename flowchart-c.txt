@@ -40,8 +40,9 @@ Registers the command
 ------------------------------ Fire ------------------------------
 ------------------------------      ------------------------------
 Registers the command
+    Sends the data over to the server which will send it back to every client to process on their own
 
-Starts the syncing (sends the data over to the server which will send it back to every client to process on their own)
+Recives back the sync (runs on all clients)
     Finds a random number between 1 and the number of entities in the array "fireSpawnLocation"
 
     Used for calls wich a vehicle:
@@ -56,7 +57,13 @@ Starts the syncing (sends the data over to the server which will send it back to
         Starts fire under the engine (that's why fire is slightly away from car coords)
     If the type of fire is anything else
         Starts fire on location
-        Spawns awsome looking particles (not acctual fire)
+
+        Gets a random number
+        Half the times:
+            Spawns awsome looking particles1 (not acctual fire but still deals damage?)
+        other half:
+            Spawns awsome looking particles2 (not acctual fire but still deals damage?)
+
     End
 End
 

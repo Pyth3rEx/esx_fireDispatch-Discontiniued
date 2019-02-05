@@ -90,9 +90,87 @@ AddEventHandler("syncCallback", function()
     CreateVehicle(model,fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z, 0.0, true, false)--Spawns vehicle
     StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y+1.5, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
   else
-    StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z, 25, fireSpawnLocation[i].isFuel) --spawn fire
-    StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+    StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
+    
+    local rmd = math.random(1000) -- Gets random number between 1 and 1000
+    if rmd <= 500 then
+      print("debug1 = " .. rmd)
+      StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+    else
+      print("debug2 = " .. rmd)
+      StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+    end
   end
+end)
+
+
+-- Handeling spreading of fires
+Citizen.CreateThread(function()
+  --[[
+    while true do -- all the time do:
+    Wait(10000) -- 10 seconds?
+    for y = -4000, 8000, 1 do
+      Wait(1)
+      print("checking Y=" .. y)
+      for x = -3900, 6000, 1 do
+        print("checking X=" .. x)
+
+        local firePos = GetClosestFirePos(x, y, 0)
+        print("firePos = " .. firePos)
+        local rmd = math.random(3) -- Gets random number between 1 and 3
+
+        if firePos ~= 1 then
+          if Vdist(firePos.x, firePos.y, firePos.z, x, y, firePos.z) <= 2 then -- Makes sure we are not doubling a fire at the oposite side of the map
+
+            if rmd == 1 then
+            print("nothing is hapenning")
+            elseif rmd == 2 then
+            print("duplicating fire choice X")
+            
+            local rmdX = math.random(5,10)
+            StartScriptFire(firePos.x+rmdX, firePos.y, firePos.z, 25, false) --spawn fire
+      
+            local rmd = math.random(1000) -- Gets random number between 1 and 1000
+            if rmd <= 500 then
+              print("debug1 = " .. rmd)
+              StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", firePos.x+rmdX, firePos.y, firePos.z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+            else
+              print("debug2 = " .. rmd)
+              StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", firePos.x+rmdX, firePos.y, firePos.z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+            end
+
+            else
+            print("duplicating fire choice Y")
+
+            local rmdY = math.random(5,10)
+            StartScriptFire(firePos.x+rmdX, firePos.y, firePos.z, 25, false) --spawn fire
+      
+            local rmd = math.random(1000) -- Gets random number between 1 and 1000
+            if rmd <= 500 then
+              print("debug1 = " .. rmd)
+              StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", firePos.x, firePos.y+rmdY, firePos.z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+            else
+              print("debug2 = " .. rmd)
+              StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", firePos.x, firePos.y+rmdY, firePos.z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+            end
+            end
+          else
+            print("Exiting if loop of death")
+          end
+        end
+      end
+    end
+  end
+  --]]
+
+  -- Stuff for particles
+  if not HasNamedPtfxAssetLoaded("core") then
+    RequestNamedPtfxAsset("core")
+    while not HasNamedPtfxAssetLoaded("core") do
+      Wait(1)
+    end
+  end
+
 end)
 
 ------------------------------                    ------------------------------
