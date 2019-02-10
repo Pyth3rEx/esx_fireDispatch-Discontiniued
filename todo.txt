@@ -1,7 +1,9 @@
 - Make the fire server side
+- Fire spreading
 - Attach the fire to the vehicle  <= Kinda done (overided by "bug")
 - Add a choice in vehicles to spawn / pick random vehicle from list
 - Do not spawn fires while it rains.... caus it's stupid looking...
+- Add custom alarm sound
 
 DONE:
 - Fix PlaySoundFromCoords
@@ -48,14 +50,25 @@ spawn new fires on top of existing ones? (could be cool to get random calls when
 need a way to find all fire entities on the map and use a for loop to spread them or not. (if extinguished quick enough they won't spread)
 
 
+for i = 1, #scriptData.firePositionsX, 1 do
+    closestFireDist = vDist(getClosestFire and coords stored in scriptData.firePositions[XYZ])
+
+    if closestFireDist <= 2 then
+        RANDOMLY CHECK FOR FIRE Spreading
+    else
+        Remove closest particles
+    end
+end
 
 
 
 
 
 
-Extinguishing fire:
-Check for small fires? (entities)
+
+
+Extinguishing fire: ???
+Check for small fires (entities)
 If small fires are deleted (extinguished)
-    remove particles?
+    remove particles
 end
