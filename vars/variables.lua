@@ -1,0 +1,5 @@
+scritData = {
+firePositionsX = {},
+firePositionsY = {},
+firePositionsZ = {},
+}

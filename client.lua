@@ -66,6 +66,7 @@ end, false)
 
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function()
+  TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
   local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
 
   -- Used for calls wich a vehicle:
@@ -117,28 +118,11 @@ end)
 
 -- Handeling spreading of fires
 Citizen.CreateThread(function()
-
   --[[
-  Wait(5000)
+  Wait(500)
   if scriptData.firePositionsX == nil then
   else
-    for i = 1, #scriptData.firePositionsX, 1 do
-      local closestFire = GetClosestFirePos(scriptData.firePositionsX[i], scriptData.firePositionsY[i], scriptData.firePositionsZ[i])
-      local closestFireDist = Vdist(closestFire[1], closestFire[2], closestFire[3], scriptData.firePositionsX[i], scriptData.firePositionsY[i], scriptData.firePositionsZ[i])
-  
-      print("closestFireDist = " .. closestFireDist)
-  
-      if closestFireDist <= 2 then
-  
-      else
-        RemoveParticleFxInRange(scriptData.firePositionsX[i], scriptData.firePositionsY[i], scriptData.firePositionsZ[i], 2)
-      end
-    end
-  end
-  --]]
-
-  Wait(500)
-  for i=1, #scriptData.firePositionsX, 1 do
+    for i=1, #scriptData.firePositionsX, 1 do
     local x = table.unpack(scriptData.firePositionsX)
     local y = table.unpack(scriptData.firePositionsY)
     local z = table.unpack(scriptData.firePositionsZ)
@@ -149,12 +133,14 @@ Citizen.CreateThread(function()
     local fireZ = GetClosestFirePos(x, y, z).z
     local distToClosestFire = Vdist(x, y, z, fireX, fireY, fireZ)
 
-    if distToClosestFire <= 2 then
+      if distToClosestFire <= 2 then
       print("fire still burning")
-    else
+      else
       print("no fires")
+      end
     end
   end
+  --]]
 
   -- Stuff for particles
   if not HasNamedPtfxAssetLoaded("core") then
