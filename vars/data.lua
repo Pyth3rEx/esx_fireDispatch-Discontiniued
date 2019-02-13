@@ -8,7 +8,7 @@ firePositions[XYZ] = stores all XYZs of fires on the map (particle entities)
 --]]
 
 scritData = {
-    firePositionsX = {},
-    firePositionsY = {},
-    firePositionsZ = {},
+    firePositionsX = {0},
+    firePositionsY = {0},
+    firePositionsZ = {0},
 }

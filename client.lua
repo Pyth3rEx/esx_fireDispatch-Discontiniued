@@ -15,15 +15,14 @@ local fireSpawnLocation = {
 ------------------------------          ------------------------------
 ------------------------------ Dispatch ------------------------------
 ------------------------------          ------------------------------
-
 RegisterNetEvent("triggerSound")
 AddEventHandler("triggerSound", function()
-  --ShowNotification("You have triggered the ~r~alarm~w~!")
+  ShowNotification("You have triggered the ~r~alarm~w~!")
   local plX, plY, plZ = table.unpack(GetEntityCoords(GetPlayerPed(-1), true)) --Gets player XYZ
   local nearestStation
 
   for i = 1, #fireHornLocation, 1 do
-    --ShowNotification(fireHornLocation[i].name.." responding!")
+    ShowNotification(fireHornLocation[i].name.." responding!")
 
     local distDiff = Vdist(plX, plY, plZ, fireHornLocation[i].x, fireHornLocation[i].y, fireHornLocation[i].z) --Gets distance between player and firestation[i]
     local nearestStationDiff
@@ -42,7 +41,7 @@ AddEventHandler("triggerSound", function()
   end
 
 
-  ---- PLAYING THE SOUND IN A RYTHM
+  ---- PLAYING THE SOUND IN A RIDDM
   for i = 1, 10, 1 do -- repeat to make it sound like an alarm
     for i = 1, 10, 1 do -- used to make it louder
       PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
@@ -119,6 +118,7 @@ end)
 -- Handeling spreading of fires
 Citizen.CreateThread(function()
 
+  --[[
   Wait(5000)
   if scriptData.firePositionsX == nil then
   else
@@ -133,6 +133,26 @@ Citizen.CreateThread(function()
       else
         RemoveParticleFxInRange(scriptData.firePositionsX[i], scriptData.firePositionsY[i], scriptData.firePositionsZ[i], 2)
       end
+    end
+  end
+  --]]
+
+  Wait(500)
+  for i=1, #scriptData.firePositionsX, 1 do
+    local x = table.unpack(scriptData.firePositionsX)
+    local y = table.unpack(scriptData.firePositionsY)
+    local z = table.unpack(scriptData.firePositionsZ)
+
+    GetClosestFirePos(x, y, z)
+    local fireX = GetClosestFirePos(x, y, z).x
+    local fireY = GetClosestFirePos(x, y, z).y
+    local fireZ = GetClosestFirePos(x, y, z).z
+    local distToClosestFire = Vdist(x, y, z, fireX, fireY, fireZ)
+
+    if distToClosestFire <= 2 then
+      print("fire still burning")
+    else
+      print("no fires")
     end
   end
 
