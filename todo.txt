@@ -1,3 +1,6 @@
+/!/ CHECK WHY WE CAN'T IMPORT VARIABLES FROM EXTERNAL FILES "attemp to index nil value"
+
+
 - Make the fire server side
 - Fire spreading
 - Attach the fire to the vehicle  <= Kinda done (overided by "bug")
