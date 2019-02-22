@@ -1,4 +1,4 @@
-scritData = {
+scriptData = {
 firePositionsX = {},
 firePositionsY = {},
 firePositionsZ = {},
