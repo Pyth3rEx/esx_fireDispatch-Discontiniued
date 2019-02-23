@@ -1,7 +1,5 @@
-/!/ CHECK WHY WE CAN'T IMPORT VARIABLES FROM EXTERNAL FILES "attemp to index nil value"
+- FIND A WAY TO REMOVE VALUE FROM TABLE // scriptData.fires
 
-
-- Make the fire server side
 - Fire spreading
 - Attach the fire to the vehicle  <= Kinda done (overided by "bug")
 - Add a choice in vehicles to spawn / pick random vehicle from list

@@ -65,7 +65,7 @@ end)
 ------------------------------ Fire ------------------------------
 ------------------------------      ------------------------------
 RegisterCommand("startFire", function(source, args, rawCommand)
-  TriggerServerEvent("potato:syncFire", source); -- sends sync requests
+  TriggerServerEvent("fireManager:syncFire", source); -- sends sync requests
 end, false)
 
 RegisterNetEvent("syncCallback")
@@ -102,20 +102,36 @@ AddEventHandler("syncCallback", function()
     --]]
 
   else
-    StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
+    scriptData.fires = StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
 
     local rmd = math.random(1000) -- Gets random number between 1 and 1000
     if rmd <= 500 then
-      StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+      scriptData.particles = StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
       table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
       table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
       table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
     else
-      StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+      scriptData.particles = StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
       table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
       table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
       table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
     end
+  end
+end)
+
+
+RegisterCommand("stopFires", function()
+  TriggerServerEvent("fireManager:removeFire", source);
+end, false)
+
+RegisterNetEvent("fireRemover")
+AddEventHandler("fireRemover", function()
+  for i = 1, #scriptData.firePositionsX, 1 do
+    RemoveScriptFire(scriptData.fires)
+    -- table.remove(scriptData.fires[i]) -- FIND A WAY TO REMOVE VALUE FROM TABLE
+    
+    RemoveParticleFx(scriptData.particles, true)
+    print("Removed Fire: " .. scriptData.firePositionsX[i] .. " " .. scriptData.firePositionsY[i] .. " " .. scriptData.firePositionsZ[i])
   end
 end)
 
