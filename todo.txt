@@ -1,4 +1,6 @@
 - FIND A WAY TO REMOVE VALUE FROM TABLE // scriptData.fires
+- Automaticaly gt the script to handle fires (eg. Whn a car blows up, the script needs to find it, add it to the variables and handle it like a spawned fire)
+- When entity "fire" is removed, attached fire particle is destroyed
 
 - Fire spreading
 - Attach the fire to the vehicle  <= Kinda done (overided by "bug")
@@ -9,6 +11,9 @@
 DONE:
 - Fix PlaySoundFromCoords
 - Added Rythm to the alarm
+- Removable fires
+- All client synced for firespawning and removing
+- Added particles to make the fires look better
 
 
 
