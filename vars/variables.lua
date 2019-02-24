@@ -1,7 +1,7 @@
 scriptData = {
-firePositionsX = {},
-firePositionsY = {},
-firePositionsZ = {},
-fires = {},
-particles = {},
+    firePositionsX = {},
+    firePositionsY = {},
+    firePositionsZ = {},
+    fires = {},
+    particles = {},
 }

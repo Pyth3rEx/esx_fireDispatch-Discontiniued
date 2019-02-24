@@ -1,1 +1,10 @@
-stuff to sync fire between clients (not done)
+FIREMANAGER ---------
+syncFire = Used to sync the /startFire command to all clients
+
+removeFire = Used to sync the /stopFires command to all clients
+
+POTATO ---------
+syncedAlarm = Used to trigger the fire alarm in the fire stations on all clients
+
+OTHERS // COMMANDS---------
+fireAlarm = "Start the fire alarm" command

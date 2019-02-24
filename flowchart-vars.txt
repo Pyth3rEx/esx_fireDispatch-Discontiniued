@@ -1,0 +1,5 @@
+firePositionsX = X position of fire
+firePositionsY = Y position of fire
+firePositionsZ = Z position of fire
+fires = ini value of spawned fire intities
+particles = ini value of spawned fire particles

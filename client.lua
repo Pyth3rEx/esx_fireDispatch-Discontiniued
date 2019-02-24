@@ -13,7 +13,8 @@ local fireHornLocation = {
 }
 
 local fireSpawnLocation = {
-  { x = 1161.0, y = -1452.53, z = 34.72, name = "El Burro Station", id = 1, isFuel = false}, --fire // id = type of fire
+  { x = 1161.0, y = -1450.53, z = 34.72, name = "El Burro Station - Testing Fire 1", id = 1, isFuel = false}, --fire // id = type of fire
+  { x = 1161.0, y = -1440.53, z = 34.72, name = "El Burro Station - Testing Fire 2", id = 1, isFuel = false}, --fire // id = type of fire
 }
 
 ------------------------------          ------------------------------
@@ -21,12 +22,10 @@ local fireSpawnLocation = {
 ------------------------------          ------------------------------
 RegisterNetEvent("triggerSound")
 AddEventHandler("triggerSound", function()
-  ShowNotification("You have triggered the ~r~alarm~w~!")
   local plX, plY, plZ = table.unpack(GetEntityCoords(GetPlayerPed(-1), true)) --Gets player XYZ
   local nearestStation
 
   for i = 1, #fireHornLocation, 1 do
-    ShowNotification(fireHornLocation[i].name.." responding!")
 
     local distDiff = Vdist(plX, plY, plZ, fireHornLocation[i].x, fireHornLocation[i].y, fireHornLocation[i].z) --Gets distance between player and firestation[i]
     local nearestStationDiff
@@ -40,7 +39,6 @@ AddEventHandler("triggerSound", function()
 
     if distDiff <= nearestStationDiff then -- if new station is the closest yet
       nearestStation = i -- assign new closest station
-      print(nearestStation)
     end
   end
 
@@ -83,7 +81,7 @@ AddEventHandler("syncCallback", function()
   end
   
 
-  -- particles stuff
+  -- particles stuff, don't touch that
   if not HasNamedPtfxAssetLoaded("core") then
     RequestNamedPtfxAsset("core")
       while not HasNamedPtfxAssetLoaded("core") do
@@ -93,25 +91,18 @@ AddEventHandler("syncCallback", function()
   SetPtfxAssetNextCall("core")
 
   if(fireSpawnLocation[i].id == 0) then
-    --[[
-    CreateVehicle(model,fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z, 0.0, true, false)--Spawns vehicle
-    StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y+1.5, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
-    table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
-    table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
-    table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z) -- stores Z
-    --]]
-
+    --Car fire
   else
     scriptData.fires = StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
 
-    local rmd = math.random(1000) -- Gets random number between 1 and 1000
-    if rmd <= 500 then
-      scriptData.particles = StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+    local rmd = math.random(2) -- Gets random number between 1 and 2
+    if rmd == 1 then
+      table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))  
       table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
       table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
       table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
     else
-      scriptData.particles = StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)  
+      table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)) 
       table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
       table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
       table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
@@ -127,49 +118,38 @@ end, false)
 RegisterNetEvent("fireRemover")
 AddEventHandler("fireRemover", function()
   for i = 1, #scriptData.firePositionsX, 1 do
-    RemoveScriptFire(scriptData.fires)
-    -- table.remove(scriptData.fires[i]) -- FIND A WAY TO REMOVE VALUE FROM TABLE
-    
-    RemoveParticleFx(scriptData.particles, true)
-    print("Removed Fire: " .. scriptData.firePositionsX[i] .. " " .. scriptData.firePositionsY[i] .. " " .. scriptData.firePositionsZ[i])
+    RemoveScriptFire(scriptData.fires[i])
+    RemoveParticleFx(scriptData.particles[i], true)
   end
 end)
 
 
--- Handeling spreading of fires
 Citizen.CreateThread(function()
-  --[[
-  Wait(500)
-  if scriptData.firePositionsX == nil then
-  else
-    for i=1, #scriptData.firePositionsX, 1 do
-    local x = table.unpack(scriptData.firePositionsX)
-    local y = table.unpack(scriptData.firePositionsY)
-    local z = table.unpack(scriptData.firePositionsZ)
-
-    GetClosestFirePos(x, y, z)
-    local fireX = GetClosestFirePos(x, y, z).x
-    local fireY = GetClosestFirePos(x, y, z).y
-    local fireZ = GetClosestFirePos(x, y, z).z
-    local distToClosestFire = Vdist(x, y, z, fireX, fireY, fireZ)
-
-      if distToClosestFire <= 2 then
-      print("fire still burning")
-      else
-      print("no fires")
-      end
-    end
-  end
-  --]]
 
   -- Stuff for particles
   if not HasNamedPtfxAssetLoaded("core") then
-    RequestNamedPtfxAsset("core")
+  RequestNamedPtfxAsset("core")
     while not HasNamedPtfxAssetLoaded("core") do
       Wait(1)
     end
   end
 
+  while true do
+    -- Handeling spreading of fires
+    Wait(1000)
+    if #scriptData.firePositionsX == 0 then
+    else
+      for i=1, #scriptData.firePositionsX, 1 do
+        local isFirePresent = GetNumberOfFiresInRange(scriptData.firePositionsX[i], scriptData.firePositionsY[i], scriptData.firePositionsZ[i], 1)
+
+        if isFirePresent ~= 0 then
+          --Deal with fire spreading
+        else
+          RemoveParticleFx(scriptData.particles[i], true)
+        end
+      end
+    end
+  end
 end)
 
 ------------------------------                    ------------------------------

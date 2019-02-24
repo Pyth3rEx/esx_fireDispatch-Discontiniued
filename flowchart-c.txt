@@ -11,7 +11,6 @@ fireSpawnLocation (locations of fires, where will the first flame spawn?) - X(in
 ------------------------------          ------------------------------
 
 Registers the command
-    Shows a notification (debug)
     Assigns Variables
         locates player
         introduces the variable "nearestStation"
@@ -45,7 +44,7 @@ Registers the command
 Recives back the sync (runs on all clients)
     Finds a random number between 1 and the number of entities in the array "fireSpawnLocation"
 
-    Used for calls wich a vehicle:
+    Used for calls with a vehicle:
         Does stuff to spawn car
 
     A bunch of stuff to avoid crashing
@@ -53,19 +52,52 @@ Recives back the sync (runs on all clients)
     Still figuring out what that does
 
     If the type of fire is "1"
-        Spawns car
-        Starts fire under the engine (that's why fire is slightly away from car coords)
+        
     If the type of fire is anything else
         Starts fire on location
 
         Gets a random number
         Half the times:
-            Spawns awsome looking particles1 (not acctual fire but still deals damage?)
+            Stores init in scriptData.particles // Spawns awsome looking particles1
+            Stores X of fire to scriptData.firePositions X
+            Stores Y of fire to scriptData.firePositions Y
+            Stores Z of fire to scriptData.firePositions Z
         other half:
-            Spawns awsome looking particles2 (not acctual fire but still deals damage?)
-
+            Stores init in scriptData.particles // Spawns awsome looking particles2
+            Stores X of fire to scriptData.firePositions X
+            Stores Y of fire to scriptData.firePositions Y
+            Stores Z of fire to scriptData.firePositions Z
     End
 End
+
+Registers the command
+    Sends the data over to the server which will send it back to every client to process on their own
+
+Recives back the sync (runs on all clients)
+    For all fires stores in the variables file
+        Remove fire entity
+        Remove fire particles
+    end
+end
+
+Citizen thread
+
+    Still figuring out what that does
+
+    Always do
+        wait 1000ms
+            if no fires are stored
+            otherwise
+                introduces isFirePresent
+
+                if fire is present
+                otherwise
+                    Remove fire particles
+                end
+            end
+        end
+    end
+end
 
 ------------------------------                    ------------------------------
 ------------------------------ Seperate functions ------------------------------
