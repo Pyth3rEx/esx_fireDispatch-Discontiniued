@@ -17,6 +17,9 @@ local fireSpawnLocation = {
   { x = 1161.0, y = -1440.53, z = 34.72, name = "El Burro Station - Testing Fire 2", id = 1, isFuel = false}, --fire // id = type of fire
 }
 
+local fireBlips = { -- Blips used to show fire location
+}
+
 ------------------------------          ------------------------------
 ------------------------------ Dispatch ------------------------------
 ------------------------------          ------------------------------
@@ -62,9 +65,35 @@ end)
 ------------------------------      ------------------------------
 ------------------------------ Fire ------------------------------
 ------------------------------      ------------------------------
+
+---------------------------- Commands ----------------------------
 RegisterCommand("startFire", function(source, args, rawCommand)
   TriggerServerEvent("fireManager:syncFire", source); -- sends sync requests
 end, false)
+
+RegisterCommand("stopFires", function()
+  TriggerServerEvent("fireManager:removeFire", source);
+end, false)
+
+RegisterCommand("stopCallout", function()
+  TriggerServerEvent("fireManager:remvoeBlip", source);
+end,false)
+
+RegisterNetEvent("fireRemover")
+AddEventHandler("fireRemover", function()
+  for i = 1, #scriptData.firePositionsX, 1 do
+    RemoveScriptFire(scriptData.fires[i])
+    RemoveParticleFx(scriptData.particles[i], true)
+  end
+end)
+------------------------------ END ------------------------------
+
+RegisterNetEvent("blipRemover") -- Hides blip byu putting their alpha to 0 (temporary solution)
+AddEventHandler("blipRemover", function()
+  for i = 1, #fireBlips, 1 do
+    SetBlipAlpha(fireBlips[i], 0)
+  end
+end)
 
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function()
@@ -90,39 +119,45 @@ AddEventHandler("syncCallback", function()
   end
   SetPtfxAssetNextCall("core")
 
-  if(fireSpawnLocation[i].id == 0) then
-    --Car fire
-  else
-    scriptData.fires = StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
 
-    local rmd = math.random(2) -- Gets random number between 1 and 2
-    if rmd == 1 then
-      table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))  
-      table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
-      table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
-      table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
+  -- Makes fire
+    if(fireSpawnLocation[i].id == 0) then
+      --Add car fire here
     else
-      table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)) 
-      table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
-      table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
-      table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
+      --Make non-car fire
+      scriptData.fires = StartScriptFire(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-1, 25, fireSpawnLocation[i].isFuel) --spawn fire
+
+      local rmd = math.random(2) -- Gets random number between 1 and 2
+      if rmd == 1 then
+        table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))  
+        table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
+        table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
+        table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
+      else
+        table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)) 
+        table.insert(scriptData.firePositionsX, fireSpawnLocation[i].x) -- stores X
+        table.insert(scriptData.firePositionsY, fireSpawnLocation[i].y) -- stores Y
+        table.insert(scriptData.firePositionsZ, fireSpawnLocation[i].z-0.7) -- stores Z
+      end
     end
-  end
+  -- Stops making fires
+
+  -- Create marker on map
+    if(Config.Display["allowGPS"] == true) then
+      local newFireBlip = AddBlipForCoord(fireSpawnLocation[i].x, fireSpawnLocation[i].y, fireSpawnLocation[i].z) -- Makes the blip
+
+      fireBlips[i] = newFireBlip -- 'create' blip to array
+
+      SetBlipAlpha(fireBlips[i], 10000)
+      SetBlipSprite(fireBlips[i], 648)
+      SetBlipColour(fireBlips[i], 1)
+      blipName = "Fire Callout"
+      SetBlipNameFromTextFile(blip, blipName)
+      SetBlipAsShortRange(blip, false)
+
+      fireBlips[i] = newFireBlip -- Save blip to array
+    end
 end)
-
-
-RegisterCommand("stopFires", function()
-  TriggerServerEvent("fireManager:removeFire", source);
-end, false)
-
-RegisterNetEvent("fireRemover")
-AddEventHandler("fireRemover", function()
-  for i = 1, #scriptData.firePositionsX, 1 do
-    RemoveScriptFire(scriptData.fires[i])
-    RemoveParticleFx(scriptData.particles[i], true)
-  end
-end)
-
 
 Citizen.CreateThread(function()
 

@@ -1,13 +1,18 @@
-- FIND A WAY TO REMOVE VALUE FROM TABLE // scriptData.fires
 - Automaticaly gt the script to handle fires (eg. Whn a car blows up, the script needs to find it, add it to the variables and handle it like a spawned fire)
 
 - Fire spreading
-- Attach the fire to the vehicle  <= Kinda done (overided by "bug")
 - Add a choice in vehicles to spawn / pick random vehicle from list
 - Do not spawn fires while it rains.... caus it's stupid looking...
 - Add custom alarm sound
 
+To be done soon:
+- Move every piece of data to config.lua (at least anything that needs to be accessed by server devs)
+- Update the flowcharts
+
 DONE:
+- Added GPS Option to config.lua
+- Added config.lua
+
 - Fix PlaySoundFromCoords
 - Added Rythm to the alarm
 - Removable fires

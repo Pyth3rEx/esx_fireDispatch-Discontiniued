@@ -8,6 +8,11 @@ AddEventHandler("fireManager:removeFire", function()
   TriggerClientEvent("fireRemover", -1)
 end)
 
+RegisterServerEvent("fireManager:remvoeBlip")
+AddEventHandler("fireManager:remvoeBlip", function()
+  TriggerClientEvent("blipRemover", -1)
+end)
+
 RegisterServerEvent("potato:syncedAlarm")
 AddEventHandler("potato:syncedAlarm", function()
   TriggerClientEvent("triggerSound", source)
