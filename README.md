@@ -25,9 +25,11 @@ in _ThingsForTheMachine you will find all the files you'll have to put in your s
 3 - Go to your server's server.cfg and add `start esx_fireDispatch` *(try and put it pretty high up as this script requires to be started quite early, I recomend right below the 'required' ESX ressources and above any player-related plugins)*
 
 **REQUEST TO PEOPLE UPDATING MY SCRIPT:**
+
 PLEASE COMMENT YOUR SHIT!!! Myself (and others) are tired of finding script that have trouble but due to lack of commenting it's impossible to understand, please comment your work.
 
 _*P.S Attribute all work to their original author... don't be that dude*_
 
 **SUPPORT ME:**
+
 I have recently started taking care of my script again, and I belive I am in a position where I can allow myself to ask for support. Feel free to support my gaming network (ZeFrench) via Tipeee. You can even watch videos for small tips that won't cost you a cent! https://en.tipeee.com/zefrench
