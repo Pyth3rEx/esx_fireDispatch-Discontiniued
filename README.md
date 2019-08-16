@@ -13,6 +13,7 @@ This script intorduces a fully-functional Fire Departement System with Fire Call
 Check the Wiki for all infos on how to setup this script for your server, help us out in the development, or just more data I don't really know how to fit here ;)
 
 **STRUCTURE:**
+
 in _ThingsForThePeople you will find files containing data on how thigns work and will be changing. This is mainly aimed to devs as the 'how to install' section should be enought for regular server owner to use. The flowcharts for example are a pseudocode version of the script for people with low lua knowledge or devs who may not understand my way of commenting
 
 in _ThingsForTheMachine you will find all the files you'll have to put in your server folder, follow install instructions for us
