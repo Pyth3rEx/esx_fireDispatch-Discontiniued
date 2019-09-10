@@ -3,6 +3,8 @@ syncFire = Used to sync the /startFire command to all clients
 
 removeFire = Used to sync the /stopFires command to all clients
 
+removeBlip = Used to sync the / command to all clients -- still need to add that -- sorry
+
 POTATO ---------
 syncedAlarm = Used to trigger the fire alarm in the fire stations on all clients
 

@@ -6,40 +6,60 @@ fireHornLocation (locations of firestations, where will the alarm be played?) - 
 
 fireSpawnLocation (locations of fires, where will the first flame spawn?) - X(int) Y(int) Z(int) NAME(string) FIRETYPE(int) ISITFUELFIRE?(bool)
 
+fireBlips (blips on map showing fire start location - DO NOT ADD ANYTHING HERE // Managed by script // He's old enough trust me)
+
 ------------------------------          ------------------------------
 ------------------------------ Dispatch ------------------------------
 ------------------------------          ------------------------------
 
 Registers the command
-    Assigns Variables
+    --Assigns Variables
         locates player
         introduces the variable "nearestStation"
     
     For as many entities there are in fireHornLocations do:
-        Finds distance between currentChecked station and player
+        Defines 'distDiff' as distance between player and 'fireHornLocation' number [i]
         introduces "nearestStationDiff"
 
         if "nearestStationDiff" has not been set yet:
             set "nearestStation" as current station
-            updates "nearestStationDiff"
-        if "nearestStationDiff" is already set:
+            set "nearestStationDiff" as distance to player and nearest station so far
+        but if "nearestStationDiff" is already set:
             set "nearestStationDiff" as distance to player and nearest station so far
         end
 
         if currentChecked station is closer or equal to the player and nearest before then
             assign new nearest station
-            debug stuff
         end
     end
 
+    ---- PLAYING THE SOUND IN A RIDDM
     playing the alarm:
         a bunch of for loops creating a pattern
 
 ------------------------------      ------------------------------
 ------------------------------ Fire ------------------------------
 ------------------------------      ------------------------------
+
+---------------------------- Commands ----------------------------
 Registers the command
     Sends the data over to the server which will send it back to every client to process on their own
+
+    Registers the command
+    Sends the data over to the server which will send it back to every client to process on their own
+
+    Registers the command
+    Sends the data over to the server which will send it back to every client to process on their own
+
+    Recives back the sync (runs on all clients)
+        For all fires stores in the variables file
+            Remove fire entity
+            Remove fire particles
+        end
+    end
+
+    Stuff I really don't understand myself at this point -- probably commands
+------------------------------ END ------------------------------
 
 Recives back the sync (runs on all clients)
     Finds a random number between 1 and the number of entities in the array "fireSpawnLocation"
@@ -70,15 +90,12 @@ Recives back the sync (runs on all clients)
     End
 End
 
-Registers the command
-    Sends the data over to the server which will send it back to every client to process on their own
+    if config.Display allows GPS then
+        define newFireBlip as fireSpawnLocation
 
-Recives back the sync (runs on all clients)
-    For all fires stores in the variables file
-        Remove fire entity
-        Remove fire particles
-    end
-end
+        a bunch of stuff defining the blip, change that if you dare
+
+        saves the blip to fireBlips
 
 Citizen thread
 

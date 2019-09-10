@@ -25,6 +25,7 @@ local fireBlips = { -- Blips used to show fire location
 ------------------------------          ------------------------------
 RegisterNetEvent("triggerSound")
 AddEventHandler("triggerSound", function()
+  --Assigns Variables
   local plX, plY, plZ = table.unpack(GetEntityCoords(GetPlayerPed(-1), true)) --Gets player XYZ
   local nearestStation
 
@@ -86,7 +87,6 @@ AddEventHandler("fireRemover", function()
     RemoveParticleFx(scriptData.particles[i], true)
   end
 end)
------------------------------- END ------------------------------
 
 RegisterNetEvent("blipRemover") -- Hides blip byu putting their alpha to 0 (temporary solution)
 AddEventHandler("blipRemover", function()
@@ -94,6 +94,7 @@ AddEventHandler("blipRemover", function()
     SetBlipAlpha(fireBlips[i], 0)
   end
 end)
+------------------------------ END ------------------------------
 
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function()
@@ -118,6 +119,7 @@ AddEventHandler("syncCallback", function()
       end
   end
   SetPtfxAssetNextCall("core")
+  -- you have left area 51 of this code
 
 
   -- Makes fire

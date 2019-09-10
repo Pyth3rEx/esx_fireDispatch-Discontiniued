@@ -1,0 +1,2 @@
+Config.Display = all configs to things showing up in your face
+    allowGPS = chose if blip is displayed on map
