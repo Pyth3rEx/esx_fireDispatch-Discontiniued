@@ -1,6 +1,7 @@
 RegisterServerEvent("fireManager:syncFire")
 AddEventHandler("fireManager:syncFire", function()
-  TriggerClientEvent("syncCallback", -1) -- Asks every client to spawn fire
+  local RNDi = math.random(#fireSpawnLocation) -- Choses a random spawn locatio
+  TriggerClientEvent("syncCallback", -1, RNDi) -- Asks every client to spawn fire
 end)
 
 RegisterServerEvent("fireManager:removeFire")

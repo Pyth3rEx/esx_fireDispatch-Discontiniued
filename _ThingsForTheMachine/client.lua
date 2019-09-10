@@ -69,6 +69,7 @@ end)
 
 ---------------------------- Commands ----------------------------
 RegisterCommand("startFire", function(source, args, rawCommand)
+  --local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
   TriggerServerEvent("fireManager:syncFire", source); -- sends sync requests
 end, false)
 
@@ -99,7 +100,7 @@ end)
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function()
   TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
-  local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
+  local i = RNDi
 
   -- Used for calls wich a vehicle:
   local model = GetHashKey("buccaneer") -- Get car's hash
