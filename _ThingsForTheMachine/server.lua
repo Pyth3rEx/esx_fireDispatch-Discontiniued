@@ -4,6 +4,11 @@ AddEventHandler("fireManager:syncFire", function(i)
   TriggerClientEvent("syncCallback", -1, i) -- Asks every client to spawn fire
 end)
 
+RegisterServerEvent("fireManager:syncSpread")
+AddEventHandler("fireManager:syncSpread", function(x,y,z)
+  TriggerClientEvent("spreadCallback", -1, x, y, z)
+end)
+
 -- Server Events
 
 RegisterServerEvent("fireManager:removeFire")
@@ -26,8 +31,3 @@ end)
 RegisterCommand("fireAlarm", function(source, args, rawCommand)
     TriggerClientEvent("triggerSound", source)
 end, false)
-
---RegisterCommand("startFire", function(source, args, rawCommand)
---  local RNDi = math.random(#fireSpawnLocation) -- Choses a random spawn locatio
---  TriggerClientEvent("syncCallback", -1, RNDi) -- Asks every client to spawn fire
---end, false)

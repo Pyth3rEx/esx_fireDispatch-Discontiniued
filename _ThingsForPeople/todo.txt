@@ -1,4 +1,4 @@
-- Automaticaly gt the script to handle fires (eg. Whn a car blows up, the script needs to find it, add it to the variables and handle it like a spawned fire)
+- Automaticaly get the script to handle fires (eg. Whn a car blows up, the script needs to find it, add it to the variables and handle it like a spawned fire)
 
 - Fire spreading
 - Add a choice in vehicles to spawn / pick random vehicle from list
@@ -7,10 +7,10 @@
 
 To be done soon:
 - Move every piece of data to config.lua (at least anything that needs to be accessed by server devs)
-- Update the flowcharts
 
 DONE:
 - Added GPS Option to config.lua
+- Added GPS timeout Option to config.lua
 - Added config.lua
 
 - Fix PlaySoundFromCoords
