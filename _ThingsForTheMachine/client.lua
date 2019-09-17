@@ -68,17 +68,18 @@ end)
 ------------------------------      ------------------------------
 
 ---------------------------- Commands ----------------------------
-RegisterCommand("startFire", function(source, args, rawCommand)
-  --local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
-  TriggerServerEvent("fireManager:syncFire", source); -- sends sync requests
+RegisterCommand("startFire", function()
+  local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
+  TriggerServerEvent("fireManager:syncFire", i); -- sends sync requests
 end, false)
 
 RegisterCommand("stopFires", function()
   TriggerServerEvent("fireManager:removeFire", source);
+  TriggerServerEvent("fireManager:removeBlip", source);
 end, false)
 
 RegisterCommand("stopCallout", function()
-  TriggerServerEvent("fireManager:remvoeBlip", source);
+  TriggerServerEvent("fireManager:removeBlip", source);
 end,false)
 
 RegisterNetEvent("fireRemover")
@@ -89,7 +90,7 @@ AddEventHandler("fireRemover", function()
   end
 end)
 
-RegisterNetEvent("blipRemover") -- Hides blip byu putting their alpha to 0 (temporary solution)
+RegisterNetEvent("blipRemover") -- Hides blip by putting their alpha to 0 (temporary solution)
 AddEventHandler("blipRemover", function()
   for i = 1, #fireBlips, 1 do
     SetBlipAlpha(fireBlips[i], 0)
@@ -98,10 +99,11 @@ end)
 ------------------------------ END ------------------------------
 
 RegisterNetEvent("syncCallback")
-AddEventHandler("syncCallback", function()
+AddEventHandler("syncCallback", function(i)
   TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
-  local i = RNDi
+  --local i = RNDi
 
+  --WARNING!!!!! The following part (for vehicles) need to be moved to server.lua to avoir sync issues
   -- Used for calls wich a vehicle:
   local model = GetHashKey("buccaneer") -- Get car's hash
   RequestModel(model) -- Car spawing stuff
