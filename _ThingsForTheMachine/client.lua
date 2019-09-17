@@ -169,21 +169,32 @@ RegisterNetEvent("spreadCallback")
 AddEventHandler("spreadCallback", function(x,y,z)
   print(x .. ' ' .. y .. ' ' .. z)
 
-  scriptData.fires = StartScriptFire(x, y, z-1, 25, false) --spawn fire
+  -- Checks for ground level
+  z = 0
+  repeat
+    Wait(0)
+    ground,NewZ = GetGroundZFor_3dCoord(x,y,z,1)
+    if not ground then
+      z = z + 0.1
+    end
+  until ground
+  z = NewZ
+
+  -- Spawns the spreaded fires
+  scriptData.fires = StartScriptFire(x, y, z, 25, false) --spawn fire StartScriptFire(X, Y, Z, maxChildren, isGasFire)
   local rmd = math.random(2) -- Gets random number between 1 and 2
   if rmd == 1 then
-    print('Spawning 1')
     table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", x, y, z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))  
     table.insert(scriptData.firePositionsX, x) -- stores X
     table.insert(scriptData.firePositionsY, y) -- stores Y
     table.insert(scriptData.firePositionsZ, z-0.7) -- stores Z
   else
-    print('Spawning 2')
     table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", x, y, z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)) 
     table.insert(scriptData.firePositionsX, x) -- stores X
     table.insert(scriptData.firePositionsY, y) -- stores Y
     table.insert(scriptData.firePositionsZ, z-0.7) -- stores Z
   end
+  -- End spawning spreaded fires
 end)
 
 Citizen.CreateThread(function()
@@ -207,7 +218,7 @@ Citizen.CreateThread(function()
         if isFirePresent ~= 0 then
 
           -- Handeling spreading of fires
-          local rmdSpread = math.random(10)
+          local rmdSpread = math.random(100)
           if rmdSpread <=	Config.Fire["fireSpreadChance"] then
             --Spread fire
             print("spreading fire")

@@ -1,6 +1,8 @@
 - Automaticaly get the script to handle fires (eg. Whn a car blows up, the script needs to find it, add it to the variables and handle it like a spawned fire)
 
 - Fire spreading
+    DONE BUT FIRE NOT SHOWING
+
 - Add a choice in vehicles to spawn / pick random vehicle from list
 - Do not spawn fires while it rains.... caus it's stupid looking...
 - Add custom alarm sound
