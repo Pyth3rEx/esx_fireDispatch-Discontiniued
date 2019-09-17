@@ -174,6 +174,7 @@ Citizen.CreateThread(function()
     end
   end
 
+  local iTimer = Config.Display["GPStimeout"] -- Sets timer value to value choses in Config file
   while true do
     -- Handeling spreading of fires
     Wait(1000)
@@ -186,6 +187,15 @@ Citizen.CreateThread(function()
           --Deal with fire spreading
         else
           RemoveParticleFx(scriptData.particles[i], true)
+        end
+
+        -- GPS Blip countdown
+        if iTimer > 0 then
+          -- the 'Wait 1 second' part is above (right under the whileTrue loop)
+          iTimer = iTimer - 1 -- Removes 1 loop
+          print(iTimer)
+        else
+          SetBlipAlpha(fireBlips[i], 0) -- Turn blip transparent
         end
       end
     end

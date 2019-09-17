@@ -21,7 +21,7 @@ in _ThingsForTheMachine you will find all the files you'll have to put in your s
 **HOW TO INSTALL:**
 
 1 - Head to the [releases](https://github.com/Pyth3rEx/esx_fireDispatch/releases) tab to download the version of your choice (don't be stupid, take the last one... unless it's broken... then don't take it...)  
-2 - Put the content of `_ThingsForTheMachine` into your [ESX] folder on your FiveM server
+2 - Put the content of `_ThingsForTheMachine` into your [ESX] folder on your FiveM server  
 3 - Go to your server's server.cfg and add `start esx_fireDispatch` *(try and put it pretty high up as this script requires to be started quite early, I recomend right below the 'required' ESX ressources and above any player-related plugins)*
 
 **REQUEST TO PEOPLE UPDATING MY SCRIPT:**
