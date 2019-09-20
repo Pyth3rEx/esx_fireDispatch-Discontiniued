@@ -12,7 +12,7 @@ This script intorduces a fully-functional Fire Departement System with Fire Call
     - *Fire Notification System*  
     - *Server-sided calculations (all clients see the same thing)*  
     - *Possibility to have infinite fire extinguishers*  
-    - *Easy to ue config*  
+    - *Easy to use config*  
     - *FiRe ClOcK*  
 
 Check the Wiki for all infos on how to setup this script for your server, help us out in the development, or just more data I don't really know how to fit here ;)
