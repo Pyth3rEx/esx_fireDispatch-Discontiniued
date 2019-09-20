@@ -114,7 +114,11 @@ end
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function(i)
   TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
-  --local i = RNDi
+
+  --Send a notification
+  if(Config.Misc["sendNoification"] == true) then
+    TriggerEvent("chatMessage",  "[FIRE DISPATCH]", {255,0,0}, "A fire has broken out @ " .. fireSpawnLocation[i].name)
+  end
 
   --WARNING!!!!! The following part (for vehicles) need to be moved to server.lua to avoir sync issues
   -- Used for calls wich a vehicle:
@@ -224,12 +228,9 @@ Citizen.CreateThread(function()
     Wait(1000)
 
     -- Makes sure everyone has infinite fire extinguishers (if config is set to that)
-    print("Checking...")
     if(Config.Misc["infiniteExtinguisher"] == true) then
       local fireAmmo = GetAmmoInPedWeapon(PlayerPedId(), 101631238)
-      print(fireAmmo)
       if fireAmmo <= 100 then -- Makes sure your computer dosn't explode
-        print('Giving...')
         GiveWeaponToPed(PlayerPedId(), 101631238, 20000, false, false)
       end
     end
