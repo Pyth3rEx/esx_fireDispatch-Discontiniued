@@ -98,6 +98,19 @@ AddEventHandler("blipRemover", function()
 end)
 ------------------------------ END ------------------------------
 
+-- Fire clock
+if(Config.Fire["randomStart"] == true) then
+  -- Fire countdown
+  local fireTimer = Config.Fire["randomTime"]
+  if fireTimer > 0 then
+    -- the 'Wait 1 second' part is above (right under the whileTrue loop)
+    fireTimer = fireTimer - 1 -- Removes 1 loop
+  else
+    local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
+    TriggerServerEvent("fireManager:syncFire", i); -- sends sync requests
+  end
+end
+
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function(i)
   TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
@@ -167,8 +180,6 @@ end)
 -- The following net event is the same as the above but for handeling fire spreading
 RegisterNetEvent("spreadCallback")
 AddEventHandler("spreadCallback", function(x,y,z)
-  print(x .. ' ' .. y .. ' ' .. z)
-
   -- Checks for ground level
   z = 0
   repeat
@@ -183,6 +194,7 @@ AddEventHandler("spreadCallback", function(x,y,z)
   -- Spawns the spreaded fires
   scriptData.fires = StartScriptFire(x, y, z, 25, false) --spawn fire StartScriptFire(X, Y, Z, maxChildren, isGasFire)
   local rmd = math.random(2) -- Gets random number between 1 and 2
+  print('spreading...')
   if rmd == 1 then
     table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_h_fire", x, y, z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))  
     table.insert(scriptData.firePositionsX, x) -- stores X
@@ -221,7 +233,6 @@ Citizen.CreateThread(function()
           local rmdSpread = math.random(100)
           if rmdSpread <=	Config.Fire["fireSpreadChance"] then
             --Spread fire
-            print("spreading fire")
 
               -- Chose X, Y and Z and launch the synced fire spawning (like fireManager:syncFire) sending X,Y,Z via function return
             local rdmFireSpot = math.random(#scriptData.firePositionsX)
