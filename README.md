@@ -36,6 +36,10 @@ PLEASE COMMENT YOUR SHIT!!! Myself (and others) are tired of finding script that
 
 _*P.S Attribute all work to their original author... don't be that dude*_
 
+**SEE IT AT WORK:**
+
+I usualy stream my work on the script as well as other games, in french and in english. Make sure to drop me a follow on [Twitch](https://www.twitch.tv/pyth3rex/) to check it out!!  
+
 **SUPPORT ME:**
 
 I have recently started taking care of my script again, and I belive I am in a position where I can allow myself to ask for support. Feel free to support my gaming network (ZeFrench) via Tipeee. You can even watch videos for small tips that won't cost you a cent! https://en.tipeee.com/zefrench
