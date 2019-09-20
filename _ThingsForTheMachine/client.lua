@@ -201,7 +201,7 @@ AddEventHandler("spreadCallback", function(x,y,z)
     table.insert(scriptData.firePositionsY, y) -- stores Y
     table.insert(scriptData.firePositionsZ, z-0.7) -- stores Z
   else
-    table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", x, y, z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false)) 
+    table.insert(scriptData.particles, StartParticleFxLoopedAtCoord("ent_ray_heli_aprtmnt_l_fire", x, y, z-0.7, 0.0, 0.0, 0.0, 1.0, false, false, false, false))
     table.insert(scriptData.firePositionsX, x) -- stores X
     table.insert(scriptData.firePositionsY, y) -- stores Y
     table.insert(scriptData.firePositionsZ, z-0.7) -- stores Z
@@ -222,6 +222,18 @@ Citizen.CreateThread(function()
   local iTimer = Config.Display["GPStimeout"] -- Sets timer value to value choses in Config file
   while true do
     Wait(1000)
+
+    -- Makes sure everyone has infinite fire extinguishers (if config is set to that)
+    print("Checking...")
+    if(Config.Misc["infiniteExtinguisher"] == true) then
+      local fireAmmo = GetAmmoInPedWeapon(PlayerPedId(), 101631238)
+      print(fireAmmo)
+      if fireAmmo <= 100 then -- Makes sure your computer dosn't explode
+        print('Giving...')
+        GiveWeaponToPed(PlayerPedId(), 101631238, 20000, false, false)
+      end
+    end
+
     if #scriptData.firePositionsX == 0 then
     else
       for i=1, #scriptData.firePositionsX, 1 do
@@ -240,8 +252,8 @@ Citizen.CreateThread(function()
             local y = scriptData.firePositionsY[rdmFireSpot]
             local z = scriptData.firePositionsZ[rdmFireSpot]
 
-            local xSpread = math.random(2,5)
-            local ySpread = math.random(2,5)
+            local xSpread = math.random(-5,5)
+            local ySpread = math.random(-5,5)
 
             local newX = x + xSpread
             local newY = y + ySpread
