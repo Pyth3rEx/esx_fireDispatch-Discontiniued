@@ -85,7 +85,11 @@ end,false)
 RegisterNetEvent("fireRemover")
 AddEventHandler("fireRemover", function()
   for i = 1, #scriptData.firePositionsX, 1 do
-    RemoveScriptFire(scriptData.fires[i])
+    if scriptData.fires[i] == nil then
+      --do nothing
+    else
+      RemoveScriptFire(scriptData.fires[i])
+    end
     RemoveParticleFx(scriptData.particles[i], true)
   end
 end)
@@ -98,7 +102,7 @@ AddEventHandler("blipRemover", function()
 end)
 ------------------------------ END ------------------------------
 
--- Fire clock
+-- fIrE cLoCk UwU
 if(Config.Fire["randomStart"] == true) then
   -- Fire countdown
   local fireTimer = Config.Fire["randomTime"]
@@ -184,6 +188,8 @@ end)
 -- The following net event is the same as the above but for handeling fire spreading
 RegisterNetEvent("spreadCallback")
 AddEventHandler("spreadCallback", function(x,y,z)
+  
+  
   -- Checks for ground level
   z = 0
   repeat
