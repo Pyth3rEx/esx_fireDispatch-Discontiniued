@@ -10,8 +10,8 @@ GPStimeout = 100, -- Timer before blip gets removed from GPS
 Config.Fire = {
 
 randomStart = false, -- Set to true if you want fires to randomly spawn
-randomTime = 50000, -- Timer before starting fires (in ms)
-fireSpreadChance = 1, -- Out of 100 chances, how many lead to fire spreading?
+randomTime = 2100, -- Timer before starting fires (in s)
+fireSpreadChance = 10, -- Out of 100 chances, how many lead to fire spreading?
 
 }
 
