@@ -102,19 +102,6 @@ AddEventHandler("blipRemover", function()
 end)
 ------------------------------ END ------------------------------
 
--- fIrE cLoCk UwU
-if(Config.Fire["randomStart"] == true) then
-  -- Fire countdown
-  local fireTimer = Config.Fire["randomTime"]
-  if fireTimer > 0 then
-    -- the 'Wait 1 second' part is above (right under the whileTrue loop)
-    fireTimer = fireTimer - 1 -- Removes 1 loop
-  else
-    local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
-    TriggerServerEvent("fireManager:syncFire", i); -- sends sync requests
-  end
-end
-
 RegisterNetEvent("syncCallback")
 AddEventHandler("syncCallback", function(i)
   TriggerServerEvent("potato:syncedAlarm") -- Starts fire alarm
@@ -219,6 +206,11 @@ AddEventHandler("spreadCallback", function(x,y,z)
   -- End spawning spreaded fires
 end)
 
+
+---------------------                       ---------------------
+--------------------- ENDLESS LOOP OF DEATH ---------------------
+---------------------                       ---------------------
+
 Citizen.CreateThread(function()
 
   -- Stuff for particles
@@ -238,6 +230,26 @@ Citizen.CreateThread(function()
       local fireAmmo = GetAmmoInPedWeapon(PlayerPedId(), 101631238)
       if fireAmmo <= 100 then -- Makes sure your computer dosn't explode
         GiveWeaponToPed(PlayerPedId(), 101631238, 20000, false, false)
+      end
+    end
+
+    -- fIrE cLoCk UwU
+    if(Config.Fire["randomStart"] == true) then
+      -- Fire countdown
+      local fireTimer = Config.Fire["randomTime"]
+      print (fireTimer)
+
+      local trueCheck = true
+      while trueCheck == true do
+        Wait(1000)
+        if fireTimer > 0 then
+          -- the 'Wait 1 second' part is above (right under the whileTrue loop)
+          fireTimer = fireTimer - 1 -- Removes 1 loop
+        else
+          local i = math.random(#fireSpawnLocation) -- Choses a random spawn location
+          TriggerServerEvent("fireManager:syncFire", i); -- sends sync requests
+          trueCheck = false
+        end
       end
     end
 
