@@ -1,3 +1,9 @@
+------------------------------            -----------------------------
+------------------------------  Required  -----------------------------
+------------------------------            -----------------------------
+
+-- local fileFireRemover = require("functions/fireRemover.lua")
+
 ------------------------------           ------------------------------
 ------------------------------ Variables ------------------------------
 ------------------------------           ------------------------------
@@ -47,11 +53,15 @@ AddEventHandler("triggerSound", function()
   end
 
 
-  ---- PLAYING THE SOUND IN A RIDDM
+  ---- PLAYING THE SOUND & LIGHTS IN A RIDDM
+
+  --DrawLightWithRangeAndShadow & DrawLightWithRange need a fix, basicaly allowing lights to shine when alarm rings
   for i = 1, 10, 1 do -- repeat to make it sound like an alarm
     for i = 1, 10, 1 do -- used to make it louder
       PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
     end
+    --DrawLightWithRange(fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, 255, 0, 0, 500, 1000)
+    --DrawLightWithRangeAndShadow(fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, 255, 0, 0, 500, 1000, 10)
     Wait(1000)
   end
   Wait(1000)
@@ -59,6 +69,8 @@ AddEventHandler("triggerSound", function()
     for i = 1, 10, 1 do -- used to make it louder
       PlaySoundFromCoord(i, "scanner_alarm_os", fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, "dlc_xm_iaa_player_facility_sounds", 1, 500, 0) --Plays sound from nearest station
     end
+    --DrawLightWithRange(fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, 255, 0, 0, 500, 1000)
+    --DrawLightWithRangeAndShadow(fireHornLocation[nearestStation].x, fireHornLocation[nearestStation].y, fireHornLocation[nearestStation].z, 255, 0, 0, 500, 1000, 10)
     Wait(2000)
   end
 end)
