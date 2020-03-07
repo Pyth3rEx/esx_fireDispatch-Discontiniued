@@ -1,4 +1,10 @@
 # esx_fireDispatch
+
+
+YAY!!! I am happy to announce that I will take care of the project again soon! Expect an update in the next 2 months or so? I'll be rewriting everything from scratch so... yea...
+
+
+
 Fire script for RP servers in FiveM
 
 This script intorduces a fully-functional Fire Departement System with Fire Callouts
