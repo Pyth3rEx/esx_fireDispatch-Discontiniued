@@ -1,7 +1,7 @@
 # esx_fireDispatch
 
 
-YAY!!! I am happy to announce that I will take care of the project again soon! Expect an update in the next 2 months or so? I'll be rewriting everything from scratch so... yea...
+Sadly, ESX_FireDispatch is no longer a thing. My job in the military includes a lot of deployments lately. Combined with the fact that I do not play FiveM anymore, I am no longer able nor willing to continiue this project. If someone wants to take over, I'd be happy to help him out, otherwise, you can see my other projects on my profile. Lots of love.
 
 
 
