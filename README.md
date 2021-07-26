@@ -1,4 +1,4 @@
-# esx_fireDispatch
+# esx_fireDispatch-Discontiniued
 
 
 Sadly, ESX_FireDispatch is no longer a thing. My job in the military includes a lot of deployments lately. Combined with the fact that I do not play FiveM anymore, I am no longer able nor willing to continiue this project. If someone wants to take over, I'd be happy to help him out, otherwise, you can see my other projects on my profile. Lots of love.
